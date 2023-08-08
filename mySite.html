@@ -23,15 +23,57 @@
 <script>
 // 応答の定義（ハッシュ）    
 var response = {
-    "ヒット":"どうされますか？",
+		"プレイ":"カードを2枚配りましたので、確認してください。",
+    "ヒット":"カードを配りましたので、確認してください。",
     "スタンド":"それでは、私のカードを確認しましょう",
     "ベット":"これでベットは終了です。カードを配りましたので、確認してください。",
-    "好きな食べ物は":"焼肉です"
+    "ベッド":"これでベットは終了です。カードを配りましたので、確認してください。"
 };
 
 const startButton = document.querySelector('#startButton'); // 開始ボタン
 const stopButton = document.querySelector('#stopButton'); // 停止ボタン
 const resultOutput = document.querySelector('#resultOutput'); // 結果出力エリア
+
+function showWeather() {
+  //var appid = 'あなたのアプリケーションID';
+  var appid = 'dj00aiZpPWg2T1RGdUVvVDhHWSZzPWNvbnN1bWVyc2VjcmV0Jng9N2U-';
+  var query = document.getElementById('query').value;
+  var url = "https://map.yahooapis.jp/weather/V1/place?appid=" + appid + "&coordinates=" + encodeURI( query ) + "&output=json&callback=showResult";
+  callJSONP( url );
+}
+
+//JSONPを実行する関数
+function callJSONP(url) {
+  console.log(url);
+  var target = document.createElement('script');
+  target.charset = 'utf-8';
+  target.src = url;
+  document.body.appendChild(target);
+}
+
+//JSONPの結果として実行される関数
+function showResult( result ) {
+  let output = '';
+
+  console.log(result);
+  
+  if(result.ResultInfo.Count > 0){
+	let name = result.Feature[0].Name;
+	console.log(name);
+	output += "<h2>" + name + "</h2>";
+	
+	for(let i=0; i < result.Feature[0].Property.WeatherList.Weather.length; i++){
+		let weather_type = result.Feature[0].Property.WeatherList.Weather[i].Type;
+		let weather_date = result.Feature[0].Property.WeatherList.Weather[i].Date;
+		let weather_rainfall = result.Feature[0].Property.WeatherList.Weather[i].Rainfall;
+		output += weather_type + "/" + weather_date + "/" + weather_rainfall + "<br>";
+	}
+  }else{
+  	output = "not found";
+  }
+  resultOutput.innerHTML = output;
+  
+}
 
 if (!'SpeechSynthesisUtterance' in window) {
     alert("あなたのブラウザはSpeech Synthesis APIに未対応です。");
@@ -90,6 +132,58 @@ stopButton.addEventListener('click', function() {
     asr.stop();
 })
 </script>
-
+<div x-data="app" x-cloak>
+  <div id="pcArea" class="cardArea">
+    <h3>Dealer</h3>
+    <template x-for="card in pcCards">
+      <!-- todo: don't like the logic in template -->
+      <img :src="card.showback?BACK_CARD:card.image" :title="card.showback?'':card.title">
+    </template>
+  </div>
+  <div id="playerArea" class="cardArea">
+    <h3>Player</h3>
+    <template x-for="card in playerCards">
+      <img :src="card.image" :title="card.title">
+    </template>
+  </div>
+  <div id="status">
+    <template x-if="playerTurn">
+      <p>
+        ヒットか?
+        <button @click="hitMe" :disabled="hitMeDisabled">Hit Me!</button>
+        <button @click="stay">Stay</button>
+      </p>
+    </template>
+    <template x-if="pcTurn">
+      <p>
+        <span x-text="pcText"></span>
+      </p>
+    </template>
+    <template x-if="playerBusted">
+      <p>
+        You busted!
+        <button @click="newGame">New Game</button>
+      </p>
+    </template>
+    <template x-if="pcBusted">
+      <p>
+        Dealer busted - you win!
+        <button @click="newGame">New Game</button>
+      </p>
+    </template>
+    <template x-if="pcWon">
+      <p>
+        Dealer won.
+        <button @click="newGame">New Game</button>
+      </p>
+    </template>
+    <template x-if="playerWon">
+      <p>
+        You won!
+        <button @click="newGame">New Game</button>
+      </p>
+    </template>
+  </div>
+</div>
 </body>
 </html>
