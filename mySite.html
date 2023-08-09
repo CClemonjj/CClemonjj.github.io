@@ -14,8 +14,8 @@
 </h1>
 
 <p>
-<button id="startButton">分からないことを聞いてね</button>
-
+<button id="startButton">このボタンを押して分からないことを聞いてね</button>
+<button id="stopButton">音声入力停止</button>
 </p>
 
 <p>
@@ -257,9 +257,9 @@ asr.onresult = function(event){
         output_not_final = '<span style="color:#ddd;">' + transcript + '</span>';
     }
     resultOutput.innerHTML = output + output_not_final;
+    asr.abort();
+    asr.stop();
 }
-asr.abort();
-asr.stop();
 
 // 開始ボタンのイベントハンドラ
 startButton.addEventListener('click', function() {
@@ -267,10 +267,10 @@ startButton.addEventListener('click', function() {
 })
 
 // 停止ボタンのイベントハンドラ
-/*stopButton.addEventListener('click', function() {
+stopButton.addEventListener('click', function() {
     asr.abort();
     asr.stop();
-})*/
+})
 </script>
 <script src="https://unpkg.com/alpinejs@3.1.x/dist/cdn.min.js" defer></script>
 <div x-data="app" x-cloak>
