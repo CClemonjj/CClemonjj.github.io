@@ -239,7 +239,7 @@ asr.onresult = function(event){
 	    asr.abort(); // 音声認識を停止
 	    let answer = response[transcript];
 	
-        output += '<span style="color:#fff;">' + answer + '</span>';
+        output += '<span style="color:#fff;">' + answer + '</span>' + "<br>";
 
 	    tts.text = answer;
 	    // 再生が終了（end）ときのイベントハンドラ（終了したときに実行される）
