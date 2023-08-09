@@ -63,7 +63,7 @@ document.addEventListener('alpine:init', () => {
       return { lowCount, highCount };
     },
 		if( text == "ヒット" ){
-    async hitMe() {
+    //async hitMe() {
       this.hitMeDisabled = true;
       this.playerCards.push(await this.drawCard());
       let count = this.getCount(this.playerCards);
@@ -72,7 +72,7 @@ document.addEventListener('alpine:init', () => {
         this.playerBusted = true;
       }
       this.hitMeDisabled = false;
-    }
+    //}
 		},
     async newGame() {
       this.pcBusted = false;
