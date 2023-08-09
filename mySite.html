@@ -13,15 +13,12 @@
 
 <p>
 <button id="startButton">start</button>
-<button id="startButton">start</button>
+<button id="stopButton">stop</button>
 </p>
 
 <p>
 <div id="resultOutput"></div>
 </p>
-
-<script src="https://unpkg.com/alpinejs@3.1.x/dist/cdn.min.js" defer></script>
-<script src="Blackjack.js" async></script>
 <script>
 // 応答の定義（ハッシュ）    
 var response = {
@@ -92,6 +89,9 @@ stopButton.addEventListener('click', function() {
     asr.stop();
 })
 </script>
+<script src="https://unpkg.com/alpinejs@3.1.x/dist/cdn.min.js" defer></script>
+<script src="Blackjack.js" async></script>
+
 
 <div x-data="app" x-cloak>
   <div id="pcArea" class="cardArea">
