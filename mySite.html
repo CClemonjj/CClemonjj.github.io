@@ -47,12 +47,14 @@ document.addEventListener('alpine:init', () => {
       this.playerCards.push(await this.drawCard());
       this.pcCards.push(await this.drawCard());
     },
+		if( transcript == "ヒット" ){
     async drawCard(count=1) {
       let resp = await fetch(`https://www.deckofcardsapi.com/api/deck/${this.deck.deck_id}/draw/?count=${count}`);
       let cardArr = await resp.json();
       let card = cardArr.cards[0];
       card.title = `${card.value} of ${card.suit}`;
       return card;
+		}
     },
     getCount(hand) {
       /*
@@ -86,7 +88,6 @@ document.addEventListener('alpine:init', () => {
       //console.log('highCount', highCount);
       return { lowCount, highCount };
     },
-		if( transcript == "ヒット" ){
     async hitMe() {
       this.hitMeDisabled = true;
       this.playerCards.push(await this.drawCard());
@@ -96,7 +97,6 @@ document.addEventListener('alpine:init', () => {
         this.playerBusted = true;
       }
       this.hitMeDisabled = false;
-    }
 		},
     async newGame() {
       this.pcBusted = false;
