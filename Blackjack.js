@@ -62,6 +62,7 @@ document.addEventListener('alpine:init', () => {
       //console.log('highCount', highCount);
       return { lowCount, highCount };
     },
+		if( text == "ヒット" ){
     async hitMe() {
       this.hitMeDisabled = true;
       this.playerCards.push(await this.drawCard());
@@ -71,7 +72,8 @@ document.addEventListener('alpine:init', () => {
         this.playerBusted = true;
       }
       this.hitMeDisabled = false;
-    },
+    }
+		},
     async newGame() {
       this.pcBusted = false;
       this.playerBusted = false;

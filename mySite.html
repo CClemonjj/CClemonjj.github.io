@@ -65,7 +65,6 @@ asr.onresult = function(event){
     if (event.results[event.resultIndex].isFinal) { // 結果が確定（Final）のとき
 	    asr.abort(); // 音声認識を停止
 	    let answer = response[transcript];
-			if( text == "ヒット" ) hitMe();
 	
         output += transcript + ' => ' + answer + '<br>';
 
