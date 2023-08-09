@@ -257,8 +257,6 @@ asr.onresult = function(event){
         output_not_final = '<span style="color:#ddd;">' + transcript + '</span>';
     }
     resultOutput.innerHTML = output + output_not_final;
-    asr.abort();
-    asr.stop();
 }
 
 // 開始ボタンのイベントハンドラ
