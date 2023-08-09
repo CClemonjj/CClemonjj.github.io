@@ -122,11 +122,11 @@ document.addEventListener('alpine:init', () => {
       */  
 
       // really first, initial text
-      this.pcText = 'The dealer begins their turn...';
+      this.pcText = 'ディーラーのターン...';
       await delay(DEALER_PAUSE);
 
       // first, a pause while we talk
-      this.pcText = 'Let me show my hand...';
+      this.pcText = '私の手札をお見せしましょう...';
       await delay(DEALER_PAUSE);
       
       // reveal my second card
@@ -147,11 +147,11 @@ document.addEventListener('alpine:init', () => {
         We are NOT doing 'soft 17', so 1 ace always count as 11
         */
         if(count.highCount <= 16) {
-          this.pcText = 'Dealer draws a card...';
+          this.pcText = 'ディーラー カード確認中...';
           await delay(DEALER_PAUSE);
           this.pcCards.push(await this.drawCard());
         } else if(count.highCount <= 21) {
-          this.pcText = 'Dealer stays...';
+          this.pcText = 'ディーラー ステイ...';
           await delay(DEALER_PAUSE);
           dealerLoop = false;
           this.pcTurn = false;
@@ -185,9 +185,22 @@ async function delay(x) {
 }
 // 応答の定義（ハッシュ）    
 var response = {
-    "ヒット":"ヒットとを押すともう一枚カードがもらえます",
-    "何歳ですか":"え、わたし、何歳にみえますか",
-    "元気ですか":"元気ですよー",
+    "ヒット":"ヒットを押すともう一枚カードがもらえます",
+    "ヒットって何":"ヒットを押すともう一枚カードがもらえます",
+    "ヒットってなに":"ヒットを押すともう一枚カードがもらえます",
+		"ヒットとは":"ヒットを押すともう一枚カードがもらえます",
+    "ヒットって":"ヒットを押すともう一枚カードがもらえます",
+    "なにヒットって":"ヒットを押すともう一枚カードがもらえます",
+		"何ヒットって":"ヒットを押すともう一枚カードがもらえます",
+		"ステイ":"ステイを押すと自分の手札が確定し、ディーラーのターンに移ります",
+    "ステイって何":"ステイを押すと自分の手札が確定し、ディーラーのターンに移ります",
+    "ステイってなに":"ステイを押すと自分の手札が確定し、ディーラーのターンに移ります",
+		"ステイとは":"ステイを押すと自分の手札が確定し、ディーラーのターンに移ります",
+    "ステイって":"ステイを押すと自分の手札が確定し、ディーラーのターンに移ります",
+    "なにステイって":"ステイを押すと自分の手札が確定し、ディーラーのターンに移ります",
+		"何ステイって":"ステイを押すと自分の手札が確定し、ディーラーのターンに移ります",
+		"ルール":"",
+		"何ステイって":"ステイを押すと自分の手札が確定し、ディーラーのターンに移ります",
     "好きな食べ物は":"焼肉です"
 };
 
@@ -226,7 +239,7 @@ asr.onresult = function(event){
 	    asr.abort(); // 音声認識を停止
 	    let answer = response[transcript];
 	
-        output += transcript + ' => ' + answer + '<br>';
+        output += '<span style="color:#fff;">' + answer + '</span>';
 
 	    tts.text = answer;
 	    // 再生が終了（end）ときのイベントハンドラ（終了したときに実行される）
@@ -282,25 +295,25 @@ stopButton.addEventListener('click', function() {
     <template x-if="playerBusted">
       <p>
         プレーヤー バースト
-        <button @click="newGame">New Game</button>
+        <button @click="newGame">もう一度プレイ</button>
       </p>
     </template>
     <template x-if="pcBusted">
       <p>
         ディーラー バースト - あなたの勝ち！
-        <button @click="newGame">New Game</button>
+        <button @click="newGame">もう一度プレイ</button>
       </p>
     </template>
     <template x-if="pcWon">
       <p>
         あなたの負け
-        <button @click="newGame">New Game</button>
+        <button @click="newGame">もう一度プレイ</button>
       </p>
     </template>
     <template x-if="playerWon">
       <p>
         あなたの勝ち！
-        <button @click="newGame">New Game</button>
+        <button @click="newGame">もう一度プレイ</button>
       </p>
     </template>
   </div>
