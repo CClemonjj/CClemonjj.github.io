@@ -185,7 +185,7 @@ async function delay(x) {
 }
 // 応答の定義（ハッシュ）    
 var response = {
-    "ヒット":"どうされますか？",
+    "ヒット":"ヒットとを押すともう一枚カードがもらえます",
     "何歳ですか":"え、わたし、何歳にみえますか",
     "元気ですか":"元気ですよー",
     "好きな食べ物は":"焼肉です"
@@ -270,8 +270,8 @@ stopButton.addEventListener('click', function() {
   <div id="status">
     <template x-if="playerTurn">
       <p>
-        <button @click="hitMe" :disabled="hitMeDisabled">Hit Me!</button>
-        <button @click="stay">Stay</button>
+        <button @click="hitMe" :disabled="hitMeDisabled">ヒット</button>
+        <button @click="stay">ステイ</button>
       </p>
     </template>
     <template x-if="pcTurn">
@@ -281,25 +281,25 @@ stopButton.addEventListener('click', function() {
     </template>
     <template x-if="playerBusted">
       <p>
-        You busted!
+        プレーヤー バースト
         <button @click="newGame">New Game</button>
       </p>
     </template>
     <template x-if="pcBusted">
       <p>
-        Dealer busted - you win!
+        ディーラー バースト - あなたの勝ち！
         <button @click="newGame">New Game</button>
       </p>
     </template>
     <template x-if="pcWon">
       <p>
-        Dealer won.
+        あなたの負け
         <button @click="newGame">New Game</button>
       </p>
     </template>
     <template x-if="playerWon">
       <p>
-        You won!
+        あなたの勝ち！
         <button @click="newGame">New Game</button>
       </p>
     </template>
