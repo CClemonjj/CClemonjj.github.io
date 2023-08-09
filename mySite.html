@@ -87,16 +87,17 @@ document.addEventListener('alpine:init', () => {
       return { lowCount, highCount };
     },
 		<template x-if="playerTurn">
-    async hitMe() {
-			this.hitMeDisabled = true;
-			this.playerCards.push(await this.drawCard());
-			let count = this.getCount(this.playerCards);
-			if(count.lowCount >= 22) {
-				this.playerTurn = false;
-				this.playerBusted = true;
-			}
-			this.hitMeDisabled = false;
-		},
+			async hitMe() {
+				this.hitMeDisabled = true;
+				this.playerCards.push(await this.drawCard());
+				let count = this.getCount(this.playerCards);
+				if(count.lowCount >= 22) {
+					this.playerTurn = false;
+					this.playerBusted = true;
+				}
+				this.hitMeDisabled = false;
+			},
+		</template>
     async newGame() {
       this.pcBusted = false;
       this.playerBusted = false;
