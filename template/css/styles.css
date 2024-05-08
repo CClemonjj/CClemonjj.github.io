@@ -10957,7 +10957,8 @@ html {
   padding: 2.5rem 5.0rem;
 }
 
-.flex {
+.table {
+  display: table;
   margin-top: 500px;
 }
 
